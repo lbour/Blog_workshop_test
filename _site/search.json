@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Blog_workshop_test",
+    "title": "Lachlan’s blog",
     "section": "",
     "text": "This is a blog\n\n\n\n\n\n\n\n\n  \n\n\n\n\nPost With Code\n\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\n\n\nNov 2, 2022\n\n\nHarlow Malloc\n\n\n\n\n\n\n  \n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\n\n\nOct 30, 2022\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
   },
@@ -32,6 +32,6 @@
     "href": "Workshop_notes.html",
     "title": "Workshop notes",
     "section": "",
-    "text": "usethis::use_github() in the terminal. This code is used to push things to github. First you must commit them (right hand top git tab) and then push. Can let commits build up and then push a few commits at a time.\nAfter you make changes you can then commit and push things. If you don’t want to use the push code, just hit green arrow to push (right hand side top git tab).\nOpened .gitignore file and typed Workshop_notes.qmd. This file won’t be shown on github now, along with all the defaults already in their (passwords etc.)"
+    "text": "For the tutorial this workshop follows:\nBrisbane Geospatial Community of Practice - Build a blog with Quarto, git, and RStudio (brisbane-geocommunity.netlify.app)\n\nSource and visual tabs. Use the visula tab and see how it changes the source tab, Visual is way easier since can edit text and stuff without the code.\nusethis::use_github() in the terminal. This code is used to push things to github. First you must commit them (right hand top git tab) and then push. Can let commits build up and then push a few commits at a time.\n\n\n\nAfter you make changes you can then commit and push things. If you don’t want to use the push code, just hit green arrow to push (right hand side top git tab).\n\n\n\nOpened .gitignore file and typed Workshop_notes.qmd. This file won’t be shown on github now, along with all the defaults already in their (passwords etc.)\n\n\n\nSet up netlify. Have a website.\nWhen make changes you must render, then commit and push. Then the site will update. Specifically netlify is reading off the _site folder. So at least push this.\nCan also fork things. You get other peoples code. Can then clone to get it onto your computer and then ask permission to send it back to the person (maybe you fixed a website typo or something)"
   }
 ]
