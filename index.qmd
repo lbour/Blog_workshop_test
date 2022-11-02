@@ -1,5 +1,5 @@
 ---
-title: "Blog_workshop_test"
+title: "Lachlan's blog"
 listing:
   contents: posts
   sort: "date desc"
