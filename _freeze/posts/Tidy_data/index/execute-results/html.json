@@ -1,0 +1,14 @@
+{
+  "hash": "54ea71887d6bb9fa96fdc611d89c78e1",
+  "result": {
+    "markdown": "---\ntitle: \"Tidy data and ggplot2?\"\nauthor: \"Lachlan Bourke\"\ndate: \"2022-11-02\"\ncategories: [news, code, analysis]\nimage: \"image.jpg\"\n---\n\n\nHi everyone! In this post we are going to talk about the tidyverse, specifically how to get our data into the tidy format and why this matters when using ggplot2! Are you ready to enter the tidyverse? First things first you will need to install the package \"tidyverse\" and then load it in you r script using the following code.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\n```\n\n::: {.cell-output .cell-output-stderr}\n```\n── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──\n✔ ggplot2 3.4.0      ✔ purrr   0.3.5 \n✔ tibble  3.1.8      ✔ dplyr   1.0.10\n✔ tidyr   1.2.1      ✔ stringr 1.5.0 \n✔ readr   2.1.3      ✔ forcats 0.5.2 \n```\n:::\n\n::: {.cell-output .cell-output-stderr}\n```\nWarning: package 'ggplot2' was built under R version 4.2.2\n```\n:::\n\n::: {.cell-output .cell-output-stderr}\n```\nWarning: package 'stringr' was built under R version 4.2.2\n```\n:::\n\n::: {.cell-output .cell-output-stderr}\n```\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n```\n:::\n:::\n\n\nSo what is the tidyverse? Simply, ..... For more detailed information on the tidyverse and how to use it to its full advantage, see..... . One of the packages is ggplot2 - an amazing package that can be used to produce figures in R (think bar graphs, line graphs, scatter plots, etc.). For more information on this package see. Note, that this blog post isn't an introduction to tidyverse or ggplot2, but rather highlights the importance making figures with tidy data. It is expected you have some background in these packages.\n\nSo, why does tidy data matter? Well first and foremost, and the reason for this blog post, it will make your life a lot easier when making figures in ggplot2 (a package that is loaded when you load the tidyverse).\n\n\n::: {.cell}\n\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
