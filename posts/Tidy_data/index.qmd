@@ -6,15 +6,25 @@ categories: [news, code, analysis]
 image: "image.jpg"
 ---
 
-Hi everyone! In this post we are going to talk about the tidyverse, specifically how to get our data into the tidy format and why this matters when using ggplot2! Are you ready to enter the tidyverse? First things first you will need to install the package "tidyverse" and then load it in you r script using the following code.
+Hi everyone! In this post we are going to talk about the tidyverse, specifically how to get our data into the tidy format and why this matters when using ggplot2! Are you ready to enter the tidyverse? First things first you will need to install the package "tidyverse" and then load it in your r script using the following code.
 
 ```{r}
 library(tidyverse)
 ```
 
-So what is the tidyverse? Simply, ..... For more detailed information on the tidyverse and how to use it to its full advantage, see..... . One of the packages is ggplot2 - an amazing package that can be used to produce figures in R (think bar graphs, line graphs, scatter plots, etc.). For more information on this package see. Note, that this blog post isn't an introduction to tidyverse or ggplot2, but rather highlights the importance making figures with tidy data. It is expected you have some background in these packages.
+So what is the tidyverse? Simply, ..... For more detailed information on the tidyverse and how to use it to its full advantage, see..... . One of the packages is ggplot2 - an amazing package that can be used to produce figures in R (think bar graphs, line graphs, scatter plots, etc.). For more information on this package see. Note, that this blog post isn't an introduction to tidyverse or ggplot2, but rather highlights the importance making figures with tidy data. It is expected you have some background in these packages. I will quickly explain what tidy data is though!
 
-So, why does tidy data matter? Well first and foremost, and the reason for this blog post, it will make your life a lot easier when making figures in ggplot2 (a package that is loaded when you load the tidyverse).
+Tidy data is a way to set up your data. Simply, columns are variables, rows are observations, and each cell is a single value.
+
+![](images/tidy-1.png)
+
+credit: [R for Data Science (2e) - 6  Data tidying (hadley.nz)](https://r4ds.hadley.nz/data-tidy.html)
+
+
+I highly recommend you read this:
+[Tidy data for efficiency, reproducibility, and collaboration (openscapes.org)](https://www.openscapes.org/blog/2020/10/12/tidy-data/)
+
+So, why does tidy data matter? Imagine if everybody's data sets were set up the same way! You could use the same code to work with them! It makes life easier. The reason for this blog post is that it will make your life a lot easier when making figures in ggplot2. Let's look at an example. Below I've loaded in some data looking at how quickly snake X clots the blood and how well antivenom works for snake X. The first column is venom concentration, followed by three columns (three replicates) of venom with no antivenom, three columns of venom incubated with antivenom 1, three coumns of venom incubated with antivenom 2, and three columns of venom incubated with antivenom 3.
 
 ```{r}
 library(tidyverse)
@@ -22,6 +32,16 @@ venom_data<-read_csv("venom_data.csv")
 venom_data
 
 ```
+
+Now that the data is loaded we want to modify the raw data so we have the mean and standard deviation values. We will then use this summarised data to make a plot that looks like this:
+
+![](images/2bced39e-0d62-4c49-885d-10e4905d74be.png)
+
+Okay, let's talk about this graph, so you can understand the data a bit better.
+
+1.  **Data not tidied! :(**
+
+Let's summarise our data (get means and standard deviation), but not worry about tidying the data.
 
 ```{r}
 venom_data_summarised <- venom_data %>% #Calculate standard deviation for each venom and venom + antivenom at each concentration
@@ -36,25 +56,25 @@ venom_data_summarised <- venom_data %>% #Calculate standard deviation for each v
     BC_ATri_sd = sd(c_across(BC_ATri1:BC_ATri3)))%>%
   select(Concentration,BC_mean, BC_ICP_mean, BC_Butantan_mean, BC_ATri_mean, 
          BC_sd, BC_ICP_sd, BC_Butantan_sd, BC_ATri_sd)
+venom_data_summarised
 ```
 
-Now....
+With our data now summarised we can use this new data frame to make our graph.
 
 ```{r}
 windowsFonts(Times=windowsFont("Times New Roman")) 
 
-colors <- c("Venom"="red", "Venom + ICP antivenom"="green", "Venom + Butantan antivenom" = "brown", 
-            "Venom + ATri antivenom" = "blue")
+colors <- c("Venom"="red", "Venom + antivenom 1"="green", "Venom + antivenom 2" = "brown", "Venom + antivenom 3" = "blue")
 
 BC_graph <- ggplot(venom_data_summarised, aes(x=Concentration)) +
   geom_line(aes(y=BC_mean, color = "Venom"), linewidth = 1) +
   geom_point(aes(y=BC_mean, colour = "Venom"), size = 2)+
-  geom_line(aes(y=BC_ICP_mean, color = "Venom + ICP antivenom"), linewidth = 1) +
-  geom_point(aes(y=BC_ICP_mean, color = "Venom + ICP antivenom"), size = 2) +
-  geom_line(aes(y=BC_Butantan_mean, color = "Venom + Butantan antivenom"), linewidth = 1) +
-  geom_point(aes(y=BC_Butantan_mean, color = "Venom + Butantan antivenom"), size = 2) +
-  geom_line(aes(y=BC_ATri_mean, color = "Venom + ATri antivenom"), linewidth = 1) +
-  geom_point(aes(y=BC_ATri_mean, color = "Venom + ATri antivenom"), size = 2) +
+  geom_line(aes(y=BC_ICP_mean, color = "Venom + antivenom 1"), linewidth = 1) +
+  geom_point(aes(y=BC_ICP_mean, color = "Venom + antivenom 1"), size = 2) +
+  geom_line(aes(y=BC_Butantan_mean, color = "Venom + antivenom 2"), linewidth = 1) +
+  geom_point(aes(y=BC_Butantan_mean, color = "Venom + antivenom 2"), size = 2) +
+  geom_line(aes(y=BC_ATri_mean, color = "Venom + antivenom 3"), linewidth = 1) +
+  geom_point(aes(y=BC_ATri_mean, color = "Venom + antivenom 3"), size = 2) +
   theme_classic() + #theme
   theme(plot.margin = margin(1,1,1.5,1.2, "cm"), #margins
         axis.text = element_text(face = "bold", color="black", family = "Times", size = 12), # Axis text formatting
