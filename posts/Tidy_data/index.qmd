@@ -1,0 +1,23 @@
+---
+title: "Tidy data and ggplot2?"
+author: "Lachlan Bourke"
+date: "2022-11-02"
+categories: [news, code, analysis]
+image: "image.jpg"
+---
+
+Hi everyone! In this post we are going to talk about the tidyverse, specifically how to get our data into the tidy format and why this matters when using ggplot2! Are you ready to enter the tidyverse? First things first you will need to install the package "tidyverse" and then load it in you r script using the following code.
+
+```{r}
+library(tidyverse)
+```
+
+So what is the tidyverse? Simply, ..... For more detailed information on the tidyverse and how to use it to its full advantage, see..... . One of the packages is ggplot2 - an amazing package that can be used to produce figures in R (think bar graphs, line graphs, scatter plots, etc.). For more information on this package see. Note, that this blog post isn't an introduction to tidyverse or ggplot2, but rather highlights the importance making figures with tidy data. It is expected you have some background in these packages.
+
+So, why does tidy data matter? Well first and foremost, and the reason for this blog post, it will make your life a lot easier when making figures in ggplot2 (a package that is loaded when you load the tidyverse).
+
+```{r}
+library(tidyverse)
+Venom_data <- read_csv("posts/Post_1/Venom_data.csv")
+
+```
