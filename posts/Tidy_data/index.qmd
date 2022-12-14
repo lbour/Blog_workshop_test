@@ -17,6 +17,7 @@ So what is the tidyverse? Simply, ..... For more detailed information on the tid
 So, why does tidy data matter? Well first and foremost, and the reason for this blog post, it will make your life a lot easier when making figures in ggplot2 (a package that is loaded when you load the tidyverse).
 
 ```{r}
-
+library(tidyverse)
+read_csv("venom_data.csv")
 
 ```

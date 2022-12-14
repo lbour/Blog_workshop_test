@@ -233,7 +233,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>So what is the tidyverse? Simply, ….. For more detailed information on the tidyverse and how to use it to its full advantage, see….. . One of the packages is ggplot2 - an amazing package that can be used to produce figures in R (think bar graphs, line graphs, scatter plots, etc.). For more information on this package see. Note, that this blog post isn’t an introduction to tidyverse or ggplot2, but rather highlights the importance making figures with tidy data. It is expected you have some background in these packages.</p>
 <p>So, why does tidy data matter? Well first and foremost, and the reason for this blog post, it will make your life a lot easier when making figures in ggplot2 (a package that is loaded when you load the tidyverse).</p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"venom_data.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 8 Columns: 13
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (13): Concentration, BC_1, BC_2, BC_3, BC_ICP1, BC_ICP2, BC_ICP3, BC_But...
 
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 13
+  Concentrat…¹  BC_1  BC_2  BC_3 BC_ICP1 BC_ICP2 BC_ICP3 BC_Bu…² BC_Bu…³ BC_Bu…⁴
+         &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1       20      14.3  14.1  14.1    15.9    16.1    16.4    21.3    21.2    20.7
+2       10      16.3  16.3  16.2    19.1    19.5    19.1    35      34.1    33.4
+3        4      19.5  19.5  19.5    25      25.6    25.5    59.7    61.1    61.1
+4        1.66   24.1  23.5  23.1    33.3    32.8    33.1    88.2    90.6    88  
+5        0.66   29.5  29.5  28.6    44.7    44      42.7   125     131.    129. 
+6        0.25   36.5  37.3  36.2    58      59.6    59.2   179.    187     186. 
+7        0.125  43.3  43.8  42.4    68.9    71.8    71.8   220.    228.    231. 
+8        0.05   81    85.8  78.1   118.    110.    121.    272     263     277. 
+# … with 3 more variables: BC_ATri1 &lt;dbl&gt;, BC_ATri2 &lt;dbl&gt;, BC_ATri3 &lt;dbl&gt;, and
+#   abbreviated variable names ¹​Concentration, ²​BC_Butantan1, ³​BC_Butantan2,
+#   ⁴​BC_Butantan3</code></pre>
+</div>
 </div>
 
 
