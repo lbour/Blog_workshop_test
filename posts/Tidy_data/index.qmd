@@ -18,6 +18,59 @@ So, why does tidy data matter? Well first and foremost, and the reason for this 
 
 ```{r}
 library(tidyverse)
-read_csv("venom_data.csv")
+venom_data<-read_csv("venom_data.csv")
+venom_data
+
+```
+
+```{r}
+venom_data_summarised <- venom_data %>% #Calculate standard deviation for each venom and venom + antivenom at each concentration
+  rowwise() %>% 
+  mutate(BC_mean = (BC_1+BC_2+BC_3)/3, 
+         BC_ICP_mean = (BC_ICP1+BC_ICP2+BC_ICP3)/3, 
+         BC_Butantan_mean = (BC_Butantan1+BC_Butantan2+BC_Butantan3)/3,
+         BC_ATri_mean = (BC_ATri1 + BC_ATri2 + BC_ATri3)/3) %>% 
+  mutate(BC_sd = sd(c_across(BC_1:BC_3)),
+    BC_ICP_sd = sd(c_across(BC_ICP1:BC_ICP3)),
+    BC_Butantan_sd = sd(c_across(BC_Butantan1:BC_Butantan3)),
+    BC_ATri_sd = sd(c_across(BC_ATri1:BC_ATri3)))%>%
+  select(Concentration,BC_mean, BC_ICP_mean, BC_Butantan_mean, BC_ATri_mean, 
+         BC_sd, BC_ICP_sd, BC_Butantan_sd, BC_ATri_sd)
+```
+
+Now....
+
+```{r}
+windowsFonts(Times=windowsFont("Times New Roman")) 
+
+colors <- c("Venom"="red", "Venom + ICP antivenom"="green", "Venom + Butantan antivenom" = "brown", 
+            "Venom + ATri antivenom" = "blue")
+
+BC_graph <- ggplot(venom_data_summarised, aes(x=Concentration)) +
+  geom_line(aes(y=BC_mean, color = "Venom"), linewidth = 1) +
+  geom_point(aes(y=BC_mean, colour = "Venom"), size = 2)+
+  geom_line(aes(y=BC_ICP_mean, color = "Venom + ICP antivenom"), linewidth = 1) +
+  geom_point(aes(y=BC_ICP_mean, color = "Venom + ICP antivenom"), size = 2) +
+  geom_line(aes(y=BC_Butantan_mean, color = "Venom + Butantan antivenom"), linewidth = 1) +
+  geom_point(aes(y=BC_Butantan_mean, color = "Venom + Butantan antivenom"), size = 2) +
+  geom_line(aes(y=BC_ATri_mean, color = "Venom + ATri antivenom"), linewidth = 1) +
+  geom_point(aes(y=BC_ATri_mean, color = "Venom + ATri antivenom"), size = 2) +
+  theme_classic() + #theme
+  theme(plot.margin = margin(1,1,1.5,1.2, "cm"), #margins
+        axis.text = element_text(face = "bold", color="black", family = "Times", size = 12), # Axis text formatting
+        axis.title = element_text(face = "bold", color="black", family = "Times", size = 14),# Axis title text formatting
+        axis.line = element_line(linewidth=1), axis.ticks = element_line(linewidth = 1), # Axis line and tick size
+        legend.title = element_text(face = "bold", family = "Times", size = 12),
+        legend.text = element_text(face = "bold", family = "Times"))+
+  scale_x_continuous(trans = "log10", breaks = c(0.2, 2, 20), expand = expansion(mult = c(0,0.01)))+ #log scale, breaks, and intercept of y and x axis = 0 (no gap before line graph)
+  scale_y_continuous(expand = c(0,0), limits = c(0, 400)) + #limits
+  labs(x = "Concentration (μg/mL)", y = "Clotting time (s)", color = "Legend")+
+  scale_color_manual(values = colors) +
+  geom_errorbar(aes(ymin=BC_mean-BC_sd, ymax=BC_mean+BC_sd), width = 0.02, size = 0.8, color = "red") +
+  geom_errorbar(aes(ymin=BC_ICP_mean-BC_ICP_sd, ymax=BC_ICP_mean+BC_ICP_sd), width = 0.02, size = 0.8, color = "green") +
+  geom_errorbar(aes(ymin=BC_Butantan_mean-BC_Butantan_sd, ymax=BC_Butantan_mean+BC_Butantan_sd), width = 0.02, size = 0.8, color = "brown") +
+  geom_errorbar(aes(ymin=BC_ATri_mean-BC_ATri_sd, ymax=BC_ATri_mean+BC_ATri_sd),width = 0.02, size = 0.8, color = "blue") 
+
+BC_graph
 
 ```
