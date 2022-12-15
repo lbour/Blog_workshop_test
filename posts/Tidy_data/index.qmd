@@ -35,7 +35,7 @@ venom_data
 
 Now that the data is loaded we want to modify the raw data so we have the mean and standard deviation values. We will then use this summarised data to make a plot that looks like this:
 
-![](images/2bced39e-0d62-4c49-885d-10e4905d74be.png)
+![](images/Example.png)
 
 Okay, let's talk about this graph, so you can understand the data a bit better.
 
@@ -46,16 +46,16 @@ Let's summarise our data (get means and standard deviation), but not worry about
 ```{r}
 venom_data_summarised <- venom_data %>% #Calculate standard deviation for each venom and venom + antivenom at each concentration
   rowwise() %>% 
-  mutate(BC_mean = (BC_1+BC_2+BC_3)/3, 
-         BC_ICP_mean = (BC_ICP1+BC_ICP2+BC_ICP3)/3, 
-         BC_Butantan_mean = (BC_Butantan1+BC_Butantan2+BC_Butantan3)/3,
-         BC_ATri_mean = (BC_ATri1 + BC_ATri2 + BC_ATri3)/3) %>% 
-  mutate(BC_sd = sd(c_across(BC_1:BC_3)),
-    BC_ICP_sd = sd(c_across(BC_ICP1:BC_ICP3)),
-    BC_Butantan_sd = sd(c_across(BC_Butantan1:BC_Butantan3)),
-    BC_ATri_sd = sd(c_across(BC_ATri1:BC_ATri3)))%>%
-  select(Concentration,BC_mean, BC_ICP_mean, BC_Butantan_mean, BC_ATri_mean, 
-         BC_sd, BC_ICP_sd, BC_Butantan_sd, BC_ATri_sd)
+  mutate(V_mean = (V_rep1+V_rep2+V_rep3)/3, 
+         AV1_mean = (AV1_rep1+AV1_rep2+AV1_rep3)/3, 
+         AV2_mean = (AV2_rep1+AV2_rep2+AV2_rep3)/3,
+         AV3_mean = (AV3_rep1 + AV3_rep2 + AV3_rep3)/3) %>% 
+  mutate(V_sd = sd(c_across(V_rep1:V_rep3)),
+    AV1_sd = sd(c_across(AV1_rep1:AV1_rep3)),
+    AV2_sd = sd(c_across(AV2_rep1:AV2_rep3)),
+    AV3_sd = sd(c_across(AV3_rep1:AV3_rep3)))%>%
+  select(Concentration,V_mean, AV1_mean, AV2_mean, AV3_mean, 
+         V_sd, AV1_sd, AV2_sd, AV3_sd)
 venom_data_summarised
 ```
 
@@ -67,14 +67,14 @@ windowsFonts(Times=windowsFont("Times New Roman"))
 colors <- c("Venom"="red", "Venom + antivenom 1"="green", "Venom + antivenom 2" = "brown", "Venom + antivenom 3" = "blue")
 
 BC_graph <- ggplot(venom_data_summarised, aes(x=Concentration)) +
-  geom_line(aes(y=BC_mean, color = "Venom"), linewidth = 1) +
-  geom_point(aes(y=BC_mean, colour = "Venom"), size = 2)+
-  geom_line(aes(y=BC_ICP_mean, color = "Venom + antivenom 1"), linewidth = 1) +
-  geom_point(aes(y=BC_ICP_mean, color = "Venom + antivenom 1"), size = 2) +
-  geom_line(aes(y=BC_Butantan_mean, color = "Venom + antivenom 2"), linewidth = 1) +
-  geom_point(aes(y=BC_Butantan_mean, color = "Venom + antivenom 2"), size = 2) +
-  geom_line(aes(y=BC_ATri_mean, color = "Venom + antivenom 3"), linewidth = 1) +
-  geom_point(aes(y=BC_ATri_mean, color = "Venom + antivenom 3"), size = 2) +
+  geom_line(aes(y=V_mean, color = "Venom"), linewidth = 1) +
+  geom_point(aes(y=V_mean, colour = "Venom"), size = 2)+
+  geom_line(aes(y=AV1_mean, color = "Venom + antivenom 1"), linewidth = 1) +
+  geom_point(aes(y=AV1_mean, color = "Venom + antivenom 1"), size = 2) +
+  geom_line(aes(y=AV2_mean, color = "Venom + antivenom 2"), linewidth = 1) +
+  geom_point(aes(y=AV2_mean, color = "Venom + antivenom 2"), size = 2) +
+  geom_line(aes(y=AV3_mean, color = "Venom + antivenom 3"), linewidth = 1) +
+  geom_point(aes(y=AV3_mean, color = "Venom + antivenom 3"), size = 2) +
   theme_classic() + #theme
   theme(plot.margin = margin(1,1,1.5,1.2, "cm"), #margins
         axis.text = element_text(face = "bold", color="black", family = "Times", size = 12), # Axis text formatting
@@ -86,10 +86,10 @@ BC_graph <- ggplot(venom_data_summarised, aes(x=Concentration)) +
   scale_y_continuous(expand = c(0,0), limits = c(0, 400)) + #limits
   labs(x = "Concentration (μg/mL)", y = "Clotting time (s)", color = "Legend")+
   scale_color_manual(values = colors) +
-  geom_errorbar(aes(ymin=BC_mean-BC_sd, ymax=BC_mean+BC_sd), width = 0.02, size = 0.8, color = "red") +
-  geom_errorbar(aes(ymin=BC_ICP_mean-BC_ICP_sd, ymax=BC_ICP_mean+BC_ICP_sd), width = 0.02, size = 0.8, color = "green") +
-  geom_errorbar(aes(ymin=BC_Butantan_mean-BC_Butantan_sd, ymax=BC_Butantan_mean+BC_Butantan_sd), width = 0.02, size = 0.8, color = "brown") +
-  geom_errorbar(aes(ymin=BC_ATri_mean-BC_ATri_sd, ymax=BC_ATri_mean+BC_ATri_sd),width = 0.02, size = 0.8, color = "blue") 
+  geom_errorbar(aes(ymin=V_mean-V_sd, ymax=V_mean+V_sd), width = 0.02, size = 0.8, color = "red") +
+  geom_errorbar(aes(ymin=AV1_mean-AV1_sd, ymax=AV1_mean+AV1_sd), width = 0.02, size = 0.8, color = "green") +
+  geom_errorbar(aes(ymin=AV2_mean-AV2_sd, ymax=AV2_mean+AV2_sd), width = 0.02, size = 0.8, color = "brown") +
+  geom_errorbar(aes(ymin=AV3_mean-AV3_sd, ymax=AV3_mean+AV3_sd),width = 0.02, size = 0.8, color = "blue") 
 
 BC_graph
 
